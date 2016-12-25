@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="common_build" default="build_service" basedir=".">
+
+	<property name="targetdir" value="target"/>
+	<property name="classbase" value="WebContent/WEB-INF/classes/"/>
+	<property name="xpf.copy.info" value="true"/>
+	<property name="model.name" value="weather"/>
+	<property name="env.name" value="dev"/>
+	
+	<target name="build_service">
+		<jar destfile="${basedir}/target/zifangsky_${model.name}_service_api.jar">
+			<fileset dir="${classbase}">
+				<include name="cn/zifangsky/**/model/*.class" />
+				<include name="cn/zifangsky/**/model/**/*.class" />
+				<include name="cn/zifangsky/**/service/*.class" />
+				<include name="cn/zifangsky/**/common/*.class" />
+				<include name="cn/zifangsky/**/common/**/*.class" />
+			</fileset>
+		</jar>
+	</target>
+	
+</project>

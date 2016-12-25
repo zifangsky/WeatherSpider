@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://cxf.apache.org/bindings/soap 
+	http://cxf.apache.org/schemas/configuration/soap.xsd 
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd
+	http://cxf.apache.org/jaxrs
+    http://cxf.apache.org/schemas/jaxrs.xsd">
+	
+	<jaxws:server id="countryService" serviceClass="cn.zifangsky.webservice.WeatherCountryService"
+		address="/soap/countryService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.WeatherCountryServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server id="provinceService" serviceClass="cn.zifangsky.webservice.WeatherProvinceService"
+		address="/soap/provinceService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.WeatherProvinceServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server id="cityService" serviceClass="cn.zifangsky.webservice.WeatherCityService"
+		address="/soap/cityService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.WeatherCityServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server id="stationService" serviceClass="cn.zifangsky.webservice.WeatherStationService"
+		address="/soap/stationService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.WeatherStationServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server id="weatherService" serviceClass="cn.zifangsky.webservice.WeatherWeatherService"
+		address="/soap/weatherService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.WeatherWeatherServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<jaxws:server id="proxyIpService" serviceClass="cn.zifangsky.webservice.ProxyIpService"
+		address="/soap/proxyIpService">
+		<jaxws:serviceBean>
+			<bean class="cn.zifangsky.webservice.impl.ProxyIpServiceImpl" />
+		</jaxws:serviceBean>
+	</jaxws:server>
+	
+	<!-- RESTFUL -->
+	<jaxrs:server id="proxyIpRest" address="/rest/proxyIpService">
+		<jaxrs:serviceBeans>
+			<bean class="cn.zifangsky.webservice.impl.ProxyIpServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+		</jaxrs:providers>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+	</jaxrs:server>
+	
+	<jaxrs:server id="weatherRest" address="/rest/weatherService">
+		<jaxrs:serviceBeans>
+			<bean class="cn.zifangsky.webservice.impl.WeatherWeatherServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+		</jaxrs:providers>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+	</jaxrs:server>
+</beans>

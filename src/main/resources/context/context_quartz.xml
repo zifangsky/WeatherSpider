@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.springframework.org/schema/jee 
+            http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd
+            http://www.springframework.org/schema/cache  
+       		http://www.springframework.org/schema/cache/spring-cache-4.0.xsd  
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.0.xsd ">
+	
+	<context:component-scan base-package="cn.zifangsky.job" />
+	
+	<!-- 配置线程池 -->
+	<bean name="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="40" />
+		<property name="queueCapacity" value="25" />
+		<property name="keepAliveSeconds" value="30000" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+	
+	<bean id="WeatherUpdateJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="cn.zifangsky.job.WeatherUpdateJob"/>
+		<property name="durability" value="true" />
+		<!-- 如果一个job是可恢复的，并且在其执行的时候，scheduler发生硬关闭，则当scheduler重新启动的时候，该job会被重新执行 -->
+		<property name="requestsRecovery" value="false"/>
+	</bean>
+	
+	<bean id="ProxyIpCheckJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="cn.zifangsky.job.ProxyIpCheckJob"/>
+		<property name="durability" value="true" />
+		<!-- 如果一个job是可恢复的，并且在其执行的时候，scheduler发生硬关闭，则当scheduler重新启动的时候，该job会被重新执行 -->
+		<property name="requestsRecovery" value="false"/>
+	</bean>
+	<bean id="ProxyIpGetJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="cn.zifangsky.job.ProxyIpGetJob"/>
+		<property name="durability" value="true" />
+		<!-- 如果一个job是可恢复的，并且在其执行的时候，scheduler发生硬关闭，则当scheduler重新启动的时候，该job会被重新执行 -->
+		<property name="requestsRecovery" value="false"/>
+	</bean>
+	<bean id="ProxyIpGetJob2Detail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="cn.zifangsky.job.ProxyIpGetJob2"/>
+		<property name="durability" value="true" />
+		<!-- 如果一个job是可恢复的，并且在其执行的时候，scheduler发生硬关闭，则当scheduler重新启动的时候，该job会被重新执行 -->
+		<property name="requestsRecovery" value="false"/>
+	</bean>
+	
+	<!-- 具体的Cron定时器 -->
+	<bean id="WeaCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="WeatherUpdateJobDetail" />
+		<property name="cronExpression" value="${cron.weather.update}" />
+		<property name="timeZone" value="GMT+8:00" />
+	</bean>
+	<bean id="ProxyIpCheckCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ProxyIpCheckJobDetail" />
+		<property name="cronExpression" value="${cron.proxyip.check}" />
+		<property name="timeZone" value="GMT+8:00" />
+	</bean>
+	<bean id="ProxyIpGetCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ProxyIpGetJobDetail" />
+		<property name="cronExpression" value="${cron.proxyip.get}" />
+		<property name="timeZone" value="GMT+8:00" />
+	</bean>
+	<bean id="ProxyIpGet2CronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="ProxyIpGetJob2Detail" />
+		<property name="cronExpression" value="${cron.proxyip.get2}" />
+		<property name="timeZone" value="GMT+8:00" />
+	</bean>
+	
+	<bean id="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 添加自定义的JobFactory -->
+		<property name="jobFactory" ref="autowiringBeanJobFactory" />
+		<!-- 加载quartz配置文件 -->
+		<property name="configLocation" value="classpath:quartz.properties" />
+		<!-- 数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 事务 -->
+		<property name="transactionManager" ref="transactionManager" />
+		<!-- 唯一名称，会保存到数据库中 -->
+		<property name="schedulerName" value="quartzScheduler" />
+		<!-- 每台集群机器部署应用的时候会更新触发器 -->
+		<property name="overwriteExistingJobs" value="true" />
+		<!--org.springframework.scheduling.quartz.SchedulerFactoryBean这个类中把spring上下 文以key/value的方式存放在了quartz的上下文中，然后可以用applicationContextSchedulerContextKey所定义的key得到对应的spring上下文-->  
+		<property name="applicationContextSchedulerContextKey" value="applicationContextKey"/>
+		
+		<property name="triggers">
+			<list>
+				<ref bean="WeaCronTrigger"/>
+				<ref bean="ProxyIpCheckCronTrigger" />
+				<ref bean="ProxyIpGetCronTrigger" />
+				<ref bean="ProxyIpGet2CronTrigger" />
+			</list>
+		</property>
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+
+</beans>	

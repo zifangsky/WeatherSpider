@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zifangsky.mapper.WeatherWeatherMapper" >
+  <resultMap id="BaseResultMap" type="cn.zifangsky.model.WeatherWeather" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="station_id" property="stationId" jdbcType="BIGINT" />
+    <result column="hour" property="hour" jdbcType="VARCHAR" />
+    <result column="today" property="today" jdbcType="VARCHAR" />
+    <result column="nextday" property="nextday" jdbcType="VARCHAR" />
+    <result column="next2day" property="next2day" jdbcType="VARCHAR" />
+    <result column="next3day" property="next3day" jdbcType="VARCHAR" />
+    <result column="next4day" property="next4day" jdbcType="VARCHAR" />
+    <result column="next5day" property="next5day" jdbcType="VARCHAR" />
+    <result column="next6day" property="next6day" jdbcType="VARCHAR" />
+    <result column="t24situation" property="t24situation" jdbcType="VARCHAR" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, station_id, hour, today, nextday, next2day, next3day, next4day, next5day, next6day, 
+    t24situation, other
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from weather_weather
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from weather_weather
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.zifangsky.model.WeatherWeather" >
+    insert into weather_weather (id, station_id, hour, 
+      today, nextday, next2day, 
+      next3day, next4day, next5day, 
+      next6day, t24situation, other
+      )
+    values (#{id,jdbcType=BIGINT}, #{stationId,jdbcType=BIGINT}, #{hour,jdbcType=VARCHAR}, 
+      #{today,jdbcType=VARCHAR}, #{nextday,jdbcType=VARCHAR}, #{next2day,jdbcType=VARCHAR}, 
+      #{next3day,jdbcType=VARCHAR}, #{next4day,jdbcType=VARCHAR}, #{next5day,jdbcType=VARCHAR}, 
+      #{next6day,jdbcType=VARCHAR}, #{t24situation,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.zifangsky.model.WeatherWeather" >
+    insert into weather_weather
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="hour != null" >
+        hour,
+      </if>
+      <if test="today != null" >
+        today,
+      </if>
+      <if test="nextday != null" >
+        nextday,
+      </if>
+      <if test="next2day != null" >
+        next2day,
+      </if>
+      <if test="next3day != null" >
+        next3day,
+      </if>
+      <if test="next4day != null" >
+        next4day,
+      </if>
+      <if test="next5day != null" >
+        next5day,
+      </if>
+      <if test="next6day != null" >
+        next6day,
+      </if>
+      <if test="t24situation != null" >
+        t24situation,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=BIGINT},
+      </if>
+      <if test="hour != null" >
+        #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="today != null" >
+        #{today,jdbcType=VARCHAR},
+      </if>
+      <if test="nextday != null" >
+        #{nextday,jdbcType=VARCHAR},
+      </if>
+      <if test="next2day != null" >
+        #{next2day,jdbcType=VARCHAR},
+      </if>
+      <if test="next3day != null" >
+        #{next3day,jdbcType=VARCHAR},
+      </if>
+      <if test="next4day != null" >
+        #{next4day,jdbcType=VARCHAR},
+      </if>
+      <if test="next5day != null" >
+        #{next5day,jdbcType=VARCHAR},
+      </if>
+      <if test="next6day != null" >
+        #{next6day,jdbcType=VARCHAR},
+      </if>
+      <if test="t24situation != null" >
+        #{t24situation,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zifangsky.model.WeatherWeather" >
+    update weather_weather
+    <set >
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=BIGINT},
+      </if>
+      <if test="hour != null" >
+        hour = #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="today != null" >
+        today = #{today,jdbcType=VARCHAR},
+      </if>
+      <if test="nextday != null" >
+        nextday = #{nextday,jdbcType=VARCHAR},
+      </if>
+      <if test="next2day != null" >
+        next2day = #{next2day,jdbcType=VARCHAR},
+      </if>
+      <if test="next3day != null" >
+        next3day = #{next3day,jdbcType=VARCHAR},
+      </if>
+      <if test="next4day != null" >
+        next4day = #{next4day,jdbcType=VARCHAR},
+      </if>
+      <if test="next5day != null" >
+        next5day = #{next5day,jdbcType=VARCHAR},
+      </if>
+      <if test="next6day != null" >
+        next6day = #{next6day,jdbcType=VARCHAR},
+      </if>
+      <if test="t24situation != null" >
+        t24situation = #{t24situation,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zifangsky.model.WeatherWeather" >
+    update weather_weather
+    set station_id = #{stationId,jdbcType=BIGINT},
+      hour = #{hour,jdbcType=VARCHAR},
+      today = #{today,jdbcType=VARCHAR},
+      nextday = #{nextday,jdbcType=VARCHAR},
+      next2day = #{next2day,jdbcType=VARCHAR},
+      next3day = #{next3day,jdbcType=VARCHAR},
+      next4day = #{next4day,jdbcType=VARCHAR},
+      next5day = #{next5day,jdbcType=VARCHAR},
+      next6day = #{next6day,jdbcType=VARCHAR},
+      t24situation = #{t24situation,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+     <sql id="sqlfileders">
+		<bind name="fileders"
+			value="#{'id':'id','stationId':'station_id','hour':'hour','today':'today','nextday':'nextday','next2day':'next2day','next3day':'next3day','next4day':'next4day','next5day':'next5day','next6day':'next6day','t24situation':'t24situation','other':'other'}" />
+		<bind name="javapropertys"
+			value="#{'id':'id','station_id':'stationId','hour':'hour','today':'today','nextday':'nextday','next2day':'next2day','next3day':'next3day','next4day':'next4day','next5day':'next5day','next6day':'next6day','t24situation':'t24situation','other':'other'}" />
+	</sql>
+	<select id="findAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <![CDATA[
+    	 select x.* from (
+    	]]>
+		select
+		<include refid="Base_Column_List" />
+		from
+		weather_weather
+		<where>
+		  <if test="weather.stationId != null" >
+	        station_id = #{weather.stationId,jdbcType=BIGINT}
+	      </if>
+	      <if test="weather.hour != null" >
+	        and hour = #{weather.hour,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.today != null" >
+	        and today = #{weather.today,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.nextday != null" >
+	        and nextday = #{weather.nextday,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.next2day != null" >
+	        and next2day = #{weather.next2day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.next3day != null" >
+	        and next3day = #{weather.next3day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.next4day != null" >
+	        and next4day = #{weather.next4day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.next5day != null" >
+	        and next5day = #{weather.next5day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.next6day != null" >
+	        and next6day = #{weather.next6day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.t24situation != null" >
+	        and t24situation = #{weather.t24situation,jdbcType=VARCHAR}
+	      </if>
+	      <if test="weather.other != null" >
+	        and other = #{weather.other,jdbcType=VARCHAR}
+	      </if>
+		</where>
+		<if test="pageInfo.sortName != null">
+			<include refid="sqlfileders" />
+			<bind name="orderfield" value="#this.fileders[pageInfo.sortName]" />
+			order by ${orderfield} ${pageInfo.sortOrder}
+		</if>
+		    <![CDATA[ ) x limit ]]>
+		#{pageInfo.from},#{pageInfo.perSize}
+	</select>
+	<select id="findAllCount" resultType="java.lang.Long" parameterType="cn.zifangsky.model.WeatherWeather">
+		select count(1) from
+		weather_weather
+		<where>
+		  <if test="stationId != null" >
+	        station_id = #{stationId,jdbcType=BIGINT}
+	      </if>
+	      <if test="hour != null" >
+	        and hour = #{hour,jdbcType=VARCHAR}
+	      </if>
+	      <if test="today != null" >
+	        and today = #{today,jdbcType=VARCHAR}
+	      </if>
+	      <if test="nextday != null" >
+	        and nextday = #{nextday,jdbcType=VARCHAR}
+	      </if>
+	      <if test="next2day != null" >
+	        and next2day = #{next2day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="next3day != null" >
+	        and next3day = #{next3day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="next4day != null" >
+	        and next4day = #{next4day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="next5day != null" >
+	        and next5day = #{next5day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="next6day != null" >
+	        and next6day = #{next6day,jdbcType=VARCHAR}
+	      </if>
+	      <if test="t24situation != null" >
+	        and t24situation = #{t24situation,jdbcType=VARCHAR}
+	      </if>
+	      <if test="other != null" >
+	        and other = #{other,jdbcType=VARCHAR}
+	      </if>
+		</where>
+	</select>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from weather_weather
+	</select>
+	
+	<select id="selectByStationId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select <include refid="Base_Column_List" /> 
+		from weather_weather where station_id = #{stationId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectByStationCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select w.* from weather_weather w,weather_station s 
+		where w.station_id = s.id and s.code = #{stationCode,jdbcType=VARCHAR};
+	</select>
+	
+	<select id="selectByStationName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select w.* from weather_weather w,weather_station s 
+		where w.station_id = s.id and s.name like concat('%',#{stationName,jdbcType=VARCHAR},'%');
+	</select>
+</mapper>

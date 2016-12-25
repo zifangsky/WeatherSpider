@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zifangsky.mapper.WeatherStationMapper" >
+  <resultMap id="BaseResultMap" type="cn.zifangsky.model.WeatherStation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, city_id, name, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from weather_station
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from weather_station
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.zifangsky.model.WeatherStation" >
+    insert into weather_station (id, code, city_id, 
+      name, description)
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{cityId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.zifangsky.model.WeatherStation" >
+    insert into weather_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zifangsky.model.WeatherStation" >
+    update weather_station
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zifangsky.model.WeatherStation" >
+    update weather_station
+    set code = #{code,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+     
+     <sql id="sqlfileders">
+		<bind name="fileders"
+			value="#{'id':'id','code':'code','name':'name','description':'description','cityId':'city_id'}" />
+		<bind name="javapropertys"
+			value="#{'id':'id','code':'code','name':'name','description':'description','city_id':'cityId'}" />
+	</sql>
+	<select id="findAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <![CDATA[
+    	 select x.* from (
+    	]]>
+		select
+		<include refid="Base_Column_List" />
+		from
+		weather_station
+		<where>
+			<if test="station.code != null" >
+		        code = #{station.code,jdbcType=VARCHAR}
+	        </if>
+	        <if test="station.name != null" >
+	            and name = #{station.name,jdbcType=VARCHAR}
+	        </if>
+	        <if test="station.cityId != null" >
+	            and city_id = #{station.cityId,jdbcType=BIGINT}
+	        </if>
+	        <if test="station.description != null" >
+	            and description = #{station.description,jdbcType=VARCHAR}
+	        </if>
+		</where>
+		<if test="pageInfo.sortName != null">
+			<include refid="sqlfileders" />
+			<bind name="orderfield" value="#this.fileders[pageInfo.sortName]" />
+			order by ${orderfield} ${pageInfo.sortOrder}
+		</if>
+		    <![CDATA[ ) x limit ]]>
+		#{pageInfo.from},#{pageInfo.perSize}
+	</select>
+	<select id="findAllCount" resultType="java.lang.Long" parameterType="cn.zifangsky.model.WeatherStation">
+		select count(1) from
+		weather_station
+		<where>
+			<if test="code != null" >
+		        code = #{code,jdbcType=VARCHAR}
+	        </if>
+	        <if test="name != null" >
+	            and name = #{name,jdbcType=VARCHAR}
+	        </if>
+	        <if test="cityId != null" >
+	            and city_id = #{cityId,jdbcType=BIGINT}
+	        </if>
+	        <if test="description != null" >
+	            and description = #{description,jdbcType=VARCHAR}
+	        </if>
+		</where>
+	</select>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from weather_station
+	</select>
+	
+	<select id="selectIdByCode" resultType="java.lang.Long" parameterType="java.lang.String">
+		select id from weather_station where code = #{code,jdbcType=VARCHAR}
+	</select>
+</mapper>
