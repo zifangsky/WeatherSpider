@@ -16,7 +16,7 @@
 		<!-- 数据库连接信息 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://127.0.0.1:3306/weatherspider" userId="root"
-			password="root">
+			password="thundersoft">
 		</jdbcConnection>
 
 		<!-- 只有一个属于forceBigDecimals，默认false。 如果字段精确超过0，生成BigDecimal 如果字段精确是0，总长度10-18生成Long;如果字段精确是0， 
