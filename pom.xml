@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <!-- 打包时忽略测试代码 -->
         <skipTests>true</skipTests>
         <!-- MyBatis -->
         <mybatis-spring-boot-starter>1.3.2</mybatis-spring-boot-starter>
