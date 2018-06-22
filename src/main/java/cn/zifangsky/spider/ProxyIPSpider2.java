@@ -1,15 +1,15 @@
 package cn.zifangsky.spider;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import cn.zifangsky.model.ProxyIp;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProxyIPSpider2 implements PageProcessor {
 
@@ -49,8 +49,8 @@ public class ProxyIPSpider2 implements PageProcessor {
 			} 
 		}
 		page.putField("result", result);
-		page.addTargetRequest("http://www.kuaidaili.com/free/inha/2/");
-		page.addTargetRequest("http://www.kuaidaili.com/free/intr/1/");
+		page.addTargetRequest("https://www.kuaidaili.com/free/inha/2/");
+		page.addTargetRequest("https://www.kuaidaili.com/free/intr/1/");
 	}
 
 }

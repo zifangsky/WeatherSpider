@@ -1,11 +1,16 @@
 package cn.zifangsky.spider;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
+import java.text.MessageFormat;
 
 public class CheckIPUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CheckIPUtils.class);
 	
 	/**
 	 * 校验代理IP的有效性，测试地址为：http://www.ip138.com
@@ -27,14 +32,16 @@ public class CheckIPUtils {
 			connection.setRequestMethod("GET");
 
 			if(connection.getResponseCode() == 200){
-				connection.disconnect();
 				return true;
 			}
 			
 		} catch (Exception e) {
-			connection.disconnect();
-			return false;
-		}
+            LOGGER.error(MessageFormat.format("代理IP[{0} {1}]不可用", ip,port));
+		}finally {
+            if(connection != null){
+                connection.disconnect();
+            }
+        }
 		return false;
 	}
 }

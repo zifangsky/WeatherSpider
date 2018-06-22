@@ -5,7 +5,20 @@ import java.io.Serializable;
 public class ProxyIp implements Serializable{
 	private static final long serialVersionUID = -3699072211264713025L;
 
-	private Long id;
+    public ProxyIp() {
+    }
+
+    public ProxyIp(Long id, String ip, Integer port, String type, String addr, Boolean used, String other) {
+        this.id = id;
+        this.ip = ip;
+        this.port = port;
+        this.type = type;
+        this.addr = addr;
+        this.used = used;
+        this.other = other;
+    }
+
+    private Long id;
 
     private String ip;
 
@@ -73,5 +86,18 @@ public class ProxyIp implements Serializable{
 
     public void setOther(String other) {
         this.other = other == null ? null : other.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "ProxyIp{" +
+                "id=" + id +
+                ", ip='" + ip + '\'' +
+                ", port=" + port +
+                ", type='" + type + '\'' +
+                ", addr='" + addr + '\'' +
+                ", used=" + used +
+                ", other='" + other + '\'' +
+                '}';
     }
 }

@@ -1,8 +1,8 @@
 package cn.zifangsky.model.bo;
 
-import java.io.Serializable;
-
 import cn.zifangsky.model.ProxyIp;
+
+import java.io.Serializable;
 
 public class ProxyIpBO extends ProxyIp implements Serializable{
 	private static final long serialVersionUID = -5395611529404702931L;
@@ -11,7 +11,19 @@ public class ProxyIpBO extends ProxyIp implements Serializable{
 	 */
 	private CheckIPType checkType;
 
-	public CheckIPType getCheckType() {
+    public ProxyIpBO() {
+    }
+
+    public ProxyIpBO(CheckIPType checkType) {
+        this.checkType = checkType;
+    }
+
+    public ProxyIpBO(Long id, String ip, Integer port, String type, String addr, Boolean used, String other, CheckIPType checkType) {
+        super(id, ip, port, type, addr, used, other);
+        this.checkType = checkType;
+    }
+
+    public CheckIPType getCheckType() {
 		return checkType;
 	}
 
@@ -45,5 +57,12 @@ public class ProxyIpBO extends ProxyIp implements Serializable{
 			this.description = description;
 		}
 
+		@Override
+		public String toString() {
+			return "CheckIPType{" +
+					"code=" + code +
+					", description='" + description + '\'' +
+					'}';
+		}
 	}
 }

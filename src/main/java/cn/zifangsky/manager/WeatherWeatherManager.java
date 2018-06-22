@@ -1,10 +1,10 @@
 package cn.zifangsky.manager;
 
-import java.util.List;
-
 import cn.zifangsky.common.PageInfo;
 import cn.zifangsky.model.WeatherWeather;
 import cn.zifangsky.model.bo.WeatherWeatherBO;
+
+import java.util.List;
 
 public interface WeatherWeatherManager {
     public int deleteByPrimaryKey(Long id);
@@ -27,7 +27,7 @@ public interface WeatherWeatherManager {
     /**
      * 分页查询
      * @param pageInfo
-     * @param city
+     * @param weather
      * @return
      */
     public List<WeatherWeather> findAll(PageInfo pageInfo,WeatherWeather weather);

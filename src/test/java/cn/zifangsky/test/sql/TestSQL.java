@@ -1,13 +1,5 @@
 package cn.zifangsky.test.sql;
 
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import cn.zifangsky.common.PageInfo;
 import cn.zifangsky.mapper.ProxyIpMapper;
 import cn.zifangsky.mapper.WeatherCountryMapper;
@@ -16,9 +8,24 @@ import cn.zifangsky.mapper.WeatherWeatherMapper;
 import cn.zifangsky.model.ProxyIp;
 import cn.zifangsky.model.WeatherCountry;
 import cn.zifangsky.model.WeatherWeather;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
+/**
+ * 测试基本数据库连接
+ * @author zifangsky
+ * @date 2018/6/11
+ * @since 1.0.0
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:/context/context.xml","classpath:/context/context_activemq.xml"})
+@SpringBootTest
+@WebAppConfiguration
 public class TestSQL {
 	@Autowired
 	private WeatherCountryMapper countryMapper;

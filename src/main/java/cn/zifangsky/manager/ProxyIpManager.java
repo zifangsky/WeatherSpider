@@ -1,9 +1,9 @@
 package cn.zifangsky.manager;
 
-import java.util.List;
-
 import cn.zifangsky.common.PageInfo;
 import cn.zifangsky.model.ProxyIp;
+
+import java.util.List;
 
 public interface ProxyIpManager {
     public int deleteByPrimaryKey(Long id);
@@ -27,7 +27,7 @@ public interface ProxyIpManager {
     /**
      * 分页查询
      * @param pageInfo
-     * @param city
+     * @param proxyIp
      * @return
      */
     public List<ProxyIp> findAll(PageInfo pageInfo,ProxyIp proxyIp);

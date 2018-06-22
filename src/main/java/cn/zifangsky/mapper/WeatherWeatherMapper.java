@@ -1,11 +1,10 @@
 package cn.zifangsky.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import cn.zifangsky.common.PageInfo;
 import cn.zifangsky.model.WeatherWeather;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface WeatherWeatherMapper {
     int deleteByPrimaryKey(Long id);
@@ -28,7 +27,7 @@ public interface WeatherWeatherMapper {
     /**
      * 分页查询
      * @param pageInfo
-     * @param city
+     * @param weather
      * @return
      */
     List<WeatherWeather> findAll(@Param("pageInfo") PageInfo pageInfo,@Param("weather") WeatherWeather weather);
