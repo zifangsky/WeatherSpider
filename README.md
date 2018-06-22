@@ -30,7 +30,7 @@
 
 #### 项目结构： ####
 
-![项目结构](D:\my_workspace\WeatherSpider\README.assets\项目结构.png)
+![项目结构](https://raw.githubusercontent.com/zifangsky/WeatherSpider/master/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png)
 
 #### 项目运行：
 
