@@ -270,4 +270,4 @@
 ## 项目开发和重构思路
 
 1. 最原始的项目的开发思路：[https://www.zifangsky.cn/901.html](https://www.zifangsky.cn/901.html)
-2. 本次的重构思路：
+2. 本次的重构思路：[https://www.zifangsky.cn/1271.html](https://www.zifangsky.cn/1271.html)
